@@ -10,9 +10,11 @@ public class Pajaro : MonoBehaviour {
     [SerializeField] ParticleSystem sangre;
     [SerializeField] float fuerza = 300f;
     Rigidbody rb;
+    private AudioSource audioData;
     int puntos = 0;
 
     void Start () {
+        audioData = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         marcador.text = "Score: " + puntos;
     }
@@ -33,6 +35,8 @@ public class Pajaro : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+        //Audio
+        audioData.Play(0);
         //DETENEMOS EL JUEGO
         GameConfig.Stop();
 
@@ -48,6 +52,7 @@ public class Pajaro : MonoBehaviour {
 
     private void FinalizarPartida()
     {
+       
         Destroy(this.gameObject);
         SceneManager.LoadScene(0);
         GameConfig.Play();
